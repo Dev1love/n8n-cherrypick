@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "n8n": {
       "main": [
@@ -175,18 +175,18 @@
       ]
     }
   },
-  "createdAt": "2023-05-15T18:38:04.667Z",
-  "id": "10",
+  "createdAt": "2023-05-15T20:06:35.034Z",
+  "id": "5",
   "name": "Back Up Your n8n Workflows To Github",
   "nodes": [
     {
       "parameters": {},
-      "id": "af28f832-7867-4959-82d8-45e9790cfe10",
+      "id": "89515519-731b-445d-97f0-e07b9f068fac",
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        835,
-        335
+        -925,
+        355
       ],
       "typeVersion": 1
     },
@@ -200,12 +200,12 @@
         "asBinaryProperty": false,
         "additionalParameters": {}
       },
-      "id": "e97be892-be53-4416-af07-8c26c67b17f6",
+      "id": "9da00609-ffa9-404d-85a9-30e95b88409a",
       "name": "GitHub",
       "type": "n8n-nodes-base.github",
       "position": [
-        1680,
-        300
+        -80,
+        320
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
@@ -237,45 +237,45 @@
           ]
         }
       },
-      "id": "6b5d5c0f-ae4b-4c11-a97b-840fcddc1178",
+      "id": "bac38dbd-9c2f-4fa6-aa27-4fb305c3321f",
       "name": "github_status",
       "type": "n8n-nodes-base.switch",
       "position": [
-        2320,
-        440
+        560,
+        460
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "e91007ac-876b-4919-bc8b-a007edf0766f",
+      "id": "49cdc003-6b4c-439c-b47b-bcd0bc201f05",
       "name": "same",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
-        240
+        800,
+        260
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "123ca083-de40-40c5-8ea0-d17d3e6c3776",
+      "id": "538483eb-552c-4e39-932d-0311bf30fea3",
       "name": "different",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
-        440
+        800,
+        460
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "f798adff-42c7-400c-9f42-ca913d631ec2",
+      "id": "5baedd0a-c1b8-4490-8a65-fe9a329af07b",
       "name": "new",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        2560,
-        620
+        800,
+        640
       ],
       "typeVersion": 1
     },
@@ -289,12 +289,12 @@
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
       },
-      "id": "5526efe9-c7fd-4cd5-8ba6-adda3b9c6629",
+      "id": "9ae3f360-f25b-4412-b837-fe2cf0480531",
       "name": "GitHub Edit",
       "type": "n8n-nodes-base.github",
       "position": [
-        2740,
-        440
+        980,
+        460
       ],
       "typeVersion": 1,
       "credentials": {
@@ -313,12 +313,12 @@
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
       },
-      "id": "0e919b9b-a810-4fe4-be21-f18d11d15a25",
+      "id": "c6144005-7f53-4036-a921-200c6014f156",
       "name": "GitHub Create",
       "type": "n8n-nodes-base.github",
       "position": [
-        2740,
-        620
+        980,
+        640
       ],
       "typeVersion": 1,
       "credentials": {
@@ -333,12 +333,12 @@
         "batchSize": 1,
         "options": {}
       },
-      "id": "4ffbe161-ac7b-4786-a06e-07679bc8ab6d",
+      "id": "7b0fcf57-3297-41b1-9ce5-c34665d0b654",
       "name": "OneAtATime",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        1460,
-        460
+        -300,
+        480
       ],
       "typeVersion": 1
     },
@@ -362,12 +362,12 @@
         },
         "options": {}
       },
-      "id": "3ca3580c-fa09-4669-8d9e-4ed5c0032d27",
+      "id": "04859772-3fbe-4960-a0d9-1674ff549e46",
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "position": [
-        1020,
-        460
+        -740,
+        480
       ],
       "typeVersion": 1
     },
@@ -382,12 +382,12 @@
           ]
         }
       },
-      "id": "9815a578-3e63-4128-bea5-8301745606b7",
+      "id": "ae17bb35-7607-4e66-a3e8-3b6447288cb7",
       "name": "Every 12 hours",
       "type": "n8n-nodes-base.cron",
       "position": [
-        835,
-        595
+        -925,
+        615
       ],
       "typeVersion": 1
     },
@@ -397,12 +397,12 @@
         "height": 464.79920462713443,
         "width": 389.78906250000017
       },
-      "id": "fbdcfdd9-4f07-48e7-8586-092d67c7fe59",
+      "id": "caa0db99-92de-4789-a8c7-e5c9be02e330",
       "name": "Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        380,
-        240
+        -1380,
+        260
       ],
       "typeVersion": 1
     },
@@ -412,12 +412,12 @@
         "height": 424.04333333333386,
         "width": 755.2349999999991
       },
-      "id": "29078a78-b383-48da-be23-2d959fd82ada",
+      "id": "5112038c-e5e0-4cf9-92f3-bd2d45e8f12d",
       "name": "Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1440,
-        180
+        -320,
+        200
       ],
       "typeVersion": 1
     },
@@ -427,12 +427,12 @@
         "height": 693.9283333333326,
         "width": 666.4416666666662
       },
-      "id": "cc2c5992-4fec-4374-be41-a6f92149f3ba",
+      "id": "3d56e556-190e-41a3-a72d-c1e20d8f5c94",
       "name": "Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2280,
-        120
+        520,
+        140
       ],
       "typeVersion": 1
     },
@@ -440,12 +440,12 @@
       "parameters": {
         "filters": {}
       },
-      "id": "926f0d45-31e5-4322-a9d8-36b8f8020076",
+      "id": "ec2bee47-d815-4993-a5dc-29ff56b11251",
       "name": "n8n",
       "type": "n8n-nodes-base.n8n",
       "position": [
-        1220,
-        460
+        -540,
+        480
       ],
       "typeVersion": 1,
       "credentials": {
@@ -459,32 +459,37 @@
       "parameters": {
         "jsCode": "// File Returned with Content\nif (Object.keys($input.all()[0].json).includes(\"content\")) {\n  // Get JSON Objects\n  var origWorkflow = JSON.parse(Buffer.from($input.all()[0].json.content, 'base64'));\n  var n8nWorkflow = $input.all()[1].json;\n  \n  // Order JSON Objects\n  var orderedOriginal = {}\n  var orderedActual = {}\n  \n  Object.keys(origWorkflow).sort().forEach(function(key) {\n    orderedOriginal[key] = origWorkflow[key];\n  });\n  \n  Object.keys(n8nWorkflow).sort().forEach(function(key) {\n    orderedActual[key] = n8nWorkflow[key];\n  });\n\n  // Determine Difference\n  if ( JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual) ) {\n    $input.all()[0].json.github_status = \"same\";\n    $input.all()[0].json.content_decoded = orderedOriginal;\n  } else {\n    $input.all()[0].json.github_status = \"different\";\n    $input.all()[0].json.content_decoded = orderedOriginal;\n    $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n// No File Returned / New Workflow\n} else {\n  // Order JSON Object\n  var n8nWorkflow = ($input.all()[1].json);\n  var orderedActual = {}\n  Object.keys(n8nWorkflow).sort().forEach(function(key) {\n    orderedActual[key] = n8nWorkflow[key];\n  });\n  \n  // Proper Formatting\n  $input.all()[0].json.github_status = \"new\";\n  $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n}\n\n// Return Items\nreturn $input.all();"
       },
-      "id": "17871023-92b4-422d-863d-e5c271fe413b",
+      "id": "64a3bf08-523d-4d84-b901-cf6423fb2107",
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        2080,
-        440
+        320,
+        460
       ],
       "typeVersion": 1
     },
     {
       "parameters": {},
-      "id": "581f2f11-c853-41f2-bc02-c3d8dcc57f19",
+      "id": "0c6fdf92-ae3d-420b-95ac-589bfff9cda4",
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "position": [
-        1900,
-        440
+        140,
+        460
       ],
       "typeVersion": 2
     }
   ],
   "pinData": {},
-  "settings": {},
+  "settings": {
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "saveExecutionProgress": true,
+    "errorWorkflow": "6"
+  },
   "staticData": null,
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2023-05-15T18:38:04.667Z",
-  "versionId": "8ac5b22d-6ca0-4b8a-9819-4866a8c5c11c"
+  "triggerCount": 1,
+  "updatedAt": "2023-05-15T20:08:27.000Z",
+  "versionId": "451d6557-4417-4fde-a85c-0231c1e1009b"
 }
