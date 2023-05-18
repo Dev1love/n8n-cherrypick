@@ -1,0 +1,202 @@
+{
+  "active": false,
+  "connections": {
+    "Вебхук": {
+      "main": [
+        [
+          {
+            "node": "Создаем переменные",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Создаем переменные": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "Письмо с зачетом",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Письмо с незачетом",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-17T21:55:01.744Z",
+  "id": "14",
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "eb37fdcd-0488-4209-879c-1076f61139dd",
+        "options": {}
+      },
+      "id": "bf41a51b-e027-4e0d-9561-bea6a45e361b",
+      "name": "Вебхук",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        820,
+        400
+      ],
+      "webhookId": "eb37fdcd-0488-4209-879c-1076f61139dd"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "body.fio",
+              "value": "={{ $json.body.fio }}"
+            },
+            {
+              "name": "body.klass",
+              "value": "={{ $json.body.klass }}"
+            },
+            {
+              "name": "body.email",
+              "value": "={{ $json.body.email }}"
+            },
+            {
+              "name": "body.diskr",
+              "value": "={{ $json.body.diskr }}"
+            },
+            {
+              "name": "body.kvadr",
+              "value": "={{ $json.body.kvadr }}"
+            },
+            {
+              "name": "body.naim",
+              "value": "={{ $json.body.naim }}"
+            },
+            {
+              "name": "body.koren",
+              "value": "={{ $json.body.koren }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2b777a45-11b8-4175-9d40-f89d9b117d19",
+      "name": "Создаем переменные",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "erofeevdma@gmail.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "Оценка за контрольную работу",
+        "text": "=Привет, {{ $json.body.fio }} из  {{ $json.body.klass }} класса!\n\nЗа последнюю контрольную работу ты получил оценку \"Зачтено\"!\n\nПоздравляю! Ты - молодец!\n\nС уважением,\nВиртуальный Учитель",
+        "options": {
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "39a8af56-7344-4c0b-b73d-13ff82bef588",
+      "name": "Письмо с зачетом",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        260
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "8",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "erofeevdma@gmail.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "Оценка за контрольную работу",
+        "text": "=Привет, {{ $json.body.fio }} из  {{ $json.body.klass }} класса!\n\nЗа последнюю контрольную работу ты получил оценку \"Незачтено\"!\n\nПодготовься и попробуй снова. Я верю, у тебя получится!\n\nС уважением,\nВиртуальный Учитель\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "710786c5-b3c3-411d-907d-a2d49aea6d37",
+      "name": "Письмо с незачетом",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        460
+      ],
+      "notesInFlow": false,
+      "credentials": {
+        "smtp": {
+          "id": "8",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.diskr }}",
+              "value2": "3"
+            },
+            {
+              "value1": "={{ $json.body.kvadr }}",
+              "value2": "5"
+            },
+            {
+              "value1": "={{ $json.body.naim }}",
+              "value2": "3"
+            },
+            {
+              "value1": "={{ $json.body.koren }}",
+              "value2": "13"
+            }
+          ]
+        }
+      },
+      "id": "2635c7d3-8c06-4d43-9089-6352348b2cb2",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        400
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-05-17T23:41:16.000Z",
+  "versionId": "99f091ae-0175-4f88-96a9-97d31e8ec2b9"
+}
