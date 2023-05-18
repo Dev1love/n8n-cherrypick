@@ -1,0 +1,338 @@
+{
+  "active": false,
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Create file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "GitHub Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Files": {
+      "main": [
+        [
+          {
+            "node": "Transform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform": {
+      "main": [
+        [
+          {
+            "node": "Download Raw Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "transform": {
+      "main": [
+        [
+          {
+            "node": "Get workflow data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get workflows": {
+      "main": [
+        [
+          {
+            "node": "transform",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get workflow data": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Raw Content": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Get workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-18T14:16:11.935Z",
+  "id": "15",
+  "name": "Backup workflows to GitHub",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": "YOUR_USERNAME",
+        "repository": "REPO_NAME",
+        "filePath": "={{$json[\"data\"][\"name\"]}}.json",
+        "fileContent": "={{JSON.stringify($json[\"data\"])}}",
+        "commitMessage": "=[N8N Backup] {{$json.data[\"name\"]}} ({{new Date(Date.now()).toLocaleDateString()}})"
+      },
+      "name": "GitHub Edit",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1590,
+        550
+      ],
+      "typeVersion": 1,
+      "id": "da1fbf23-6fc4-4bae-9e11-358aaa83a488",
+      "credentials": {
+        "githubApi": {
+          "id": "12",
+          "name": "GitHub account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": "YOUR_USERNAME",
+        "repository": "REPO",
+        "filePath": "/",
+        "asBinaryProperty": false,
+        "additionalParameters": {}
+      },
+      "name": "Get Files",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        600,
+        440
+      ],
+      "executeOnce": true,
+      "typeVersion": 1,
+      "alwaysOutputData": false,
+      "id": "58116ddd-5a46-4160-9cb8-541a174c288c",
+      "credentials": {
+        "githubApi": {
+          "id": "12",
+          "name": "GitHub account 2"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "functionCode": "return items[0].json.map(item => {\n  return {\n    json: item\n  }\n});\n"
+      },
+      "name": "Transform",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        800,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "892484b4-c38e-45ca-b5c3-de6f1318f595",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": "YOUR_USERNAME",
+        "repository": "REPO",
+        "filePath": "={{$json[\"data\"][\"name\"]}}.json",
+        "fileContent": "={{JSON.stringify($node['Merge'].json[\"data\"])}}",
+        "commitMessage": "=[N8N Backup] {{$json.data[\"name\"]}}.json ({{new Date(Date.now()).toLocaleDateString()}})"
+      },
+      "name": "Create file",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        1640,
+        220
+      ],
+      "typeVersion": 1,
+      "id": "258c7d53-fc2b-48e9-8e46-a18dfb38d0fb",
+      "credentials": {
+        "githubApi": {
+          "id": "12",
+          "name": "GitHub account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "removeKeyMatches",
+        "propertyName1": "data.name",
+        "propertyName2": "data.name"
+      },
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1330,
+        220
+      ],
+      "typeVersion": 1,
+      "id": "a6f1cbef-114b-4991-98b8-beba0ac7fc96"
+    },
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "url": "https://n8n.cherrypick.agency/rest/workflows",
+        "allowUnauthorizedCerts": true,
+        "options": {}
+      },
+      "name": "Get workflows",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        600,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "7c344146-8fee-46a7-ac3b-c1c524460be1",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "10",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "basicAuth",
+        "url": "=http://localhost:5678/rest/workflows/{{$json[\"id\"]}}",
+        "options": {}
+      },
+      "name": "Get workflow data",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1000,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "44a58be3-ad02-4ccc-9395-ceb1ac513c8d",
+      "credentials": {
+        "httpBasicAuth": {
+          "id": "10",
+          "name": "Unnamed credential 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "url": "={{$json[\"download_url\"]}}",
+        "allowUnauthorizedCerts": true,
+        "responseFormat": "string",
+        "options": {}
+      },
+      "name": "Download Raw Content",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1000,
+        440
+      ],
+      "typeVersion": 1,
+      "id": "021458ae-4f49-4881-ab8f-fa09d8a886a7",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": null,
+          "name": "GitHub Token"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "functionCode": "const newItems = [];\nfor (item of items[0].json.data) {\n  newItems.push({json: item});\n}\nreturn newItems;"
+      },
+      "name": "transform",
+      "type": "n8n-nodes-base.function",
+      "position": [
+        790,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "e757f178-c1be-478d-a321-c367897c7345"
+    },
+    {
+      "parameters": {
+        "mode": "removeKeyMatches",
+        "propertyName1": "data.updatedAt",
+        "propertyName2": "data.updatedAt"
+      },
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1370,
+        550
+      ],
+      "typeVersion": 1,
+      "id": "4516d57f-4041-4c72-9230-c437f9e69bbd"
+    },
+    {
+      "parameters": {},
+      "id": "b7710ece-3f3e-44a1-81b5-711b9ae1e6c9",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        400,
+        220
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-05-18T14:16:11.935Z",
+  "versionId": "62fbd0c3-4e4b-404a-b728-97d4fd1b1719"
+}
