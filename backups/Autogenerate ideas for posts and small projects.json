@@ -35,8 +35,8 @@
       ]
     }
   },
-  "createdAt": "2023-05-12T16:02:44.364Z",
-  "id": "3",
+  "createdAt": "2023-05-15T20:04:57.762Z",
+  "id": "4",
   "name": "Autogenerate ideas for posts and small projects",
   "nodes": [
     {
@@ -45,12 +45,12 @@
         "text": "={{ $json.message.content }}",
         "additionalFields": {}
       },
-      "id": "3e14e2b1-9194-4465-8b51-9019e98a12fa",
+      "id": "ea85da8c-8345-46ef-906d-868bf9e8947d",
       "name": "Telegram",
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1,
       "position": [
-        1300,
+        1180,
         300
       ],
       "credentials": {
@@ -72,12 +72,12 @@
         },
         "options": {}
       },
-      "id": "26859746-088c-4675-bdbe-63d757454ab5",
+      "id": "6eea4be7-3237-4a6b-a1dc-833dde8009d3",
       "name": "Set",
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        840,
+        720,
         300
       ]
     },
@@ -94,17 +94,17 @@
         },
         "options": {}
       },
-      "id": "ecf659b9-640c-4fb4-819d-3750179d3fde",
+      "id": "3ed41f4e-3a50-409b-80d1-1df90eb58cac",
       "name": "OpenAI",
       "type": "n8n-nodes-base.openAi",
       "typeVersion": 1,
       "position": [
-        1060,
+        940,
         300
       ],
       "credentials": {
         "openAiApi": {
-          "id": "2",
+          "id": "5",
           "name": "OpenAi account"
         }
       }
@@ -119,22 +119,21 @@
           ]
         }
       },
-      "id": "85261d0b-ec2b-4d8b-9795-7125ae25b78c",
+      "id": "978b7e31-b9f7-40e4-9163-e83459374f6c",
       "name": "Schedule Trigger",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1,
       "position": [
-        640,
+        520,
         300
       ]
     }
   ],
   "pinData": {},
   "settings": {
-    "saveExecutionProgress": true,
-    "saveManualExecutions": true,
+    "saveManualExecutions": false,
     "callerPolicy": "workflowsFromSameOwner",
-    "errorWorkflow": "7"
+    "errorWorkflow": "6"
   },
   "staticData": {
     "node:Schedule Trigger": {
@@ -143,6 +142,6 @@
   },
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-05-12T16:23:21.000Z",
-  "versionId": "f98fb9af-1dc1-4c44-aa8c-4a11f31b0131"
+  "updatedAt": "2023-05-15T20:08:23.000Z",
+  "versionId": "7b120ff0-2bcd-4984-ba82-3a9d58d9cd25"
 }
