@@ -1,0 +1,608 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Set2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Set2": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Set3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set3": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item Lists": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Item Lists",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Set4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-18T20:29:51.943Z",
+  "id": "16",
+  "name": "Clockify Time Entry",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "4deff74a-3c36-45d1-b0e7-b6d2d28363f9",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.clockify.me/api/v1/workspaces",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "clockifyApi",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 100
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "6e4c7281-8334-4725-895c-e7cf6d15cf2e",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        440,
+        360
+      ],
+      "credentials": {
+        "clockifyApi": {
+          "id": "13",
+          "name": "Clockify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.clockify.me/api/v1/workspaces/{{ $json.id }}/users ",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "clockifyApi",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 100
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "bd42ac7d-377c-48b7-b7e9-3015a5a7a404",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        660,
+        360
+      ],
+      "credentials": {
+        "clockifyApi": {
+          "id": "13",
+          "name": "Clockify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.clockify.me/api/v1/workspaces/{{ $json.activeWorkspace }}/user/{{ $json.userId }}/time-entries?page-size=5000",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "clockifyApi",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 100
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "8bfc022b-84bf-457f-9b38-e9f72b6c110f",
+      "name": "HTTP Request2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1120,
+        280
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "clockifyApi": {
+          "id": "13",
+          "name": "Clockify account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "userId",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "user_name",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "activeWorkspace",
+              "value": "={{ $json.activeWorkspace }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ab147567-017b-4850-b6d1-030fa4eb2c99",
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        880,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "projectId",
+              "value": "={{ $json.projectId }}"
+            },
+            {
+              "name": "userId",
+              "value": "={{ $json.userId }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "timeInterval.start",
+              "value": "={{ $json.timeInterval.start }}"
+            },
+            {
+              "name": "timeInterval.end",
+              "value": "={{ $json.timeInterval.end }}"
+            },
+            {
+              "name": "timeInterval.duration",
+              "value": "={{ $json.timeInterval.duration }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b60432aa-e2a0-4119-b992-047a384a4f31",
+      "name": "Set2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=https://api.clockify.me/api/v1/workspaces/{{ $json.id }}/projects?page-size=5000",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "clockifyApi",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 100
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "b7c36bb1-0f67-4814-ae0f-b8ea26fdbebb",
+      "name": "HTTP Request3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        700,
+        580
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "clockifyApi": {
+          "id": "13",
+          "name": "Clockify account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "project_name",
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "projectId",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6f66c370-b646-4ebb-b1e0-aae946139c9d",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "projectId",
+              "field2": "projectId"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "47d78df7-7aab-4ad1-9ca1-e35c909274c4",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {
+              "field1": "userId",
+              "field2": "userId"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ab214276-7722-4bdd-a3ae-3ab568dcae69",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1800,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "project_name",
+              "value": "={{ $json.project_name }}"
+            },
+            {
+              "name": "user_name",
+              "value": "={{ $json.user_name }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "timeInterval.start",
+              "value": "={{ $json.timeInterval.start }}"
+            },
+            {
+              "name": "timeInterval.end",
+              "value": "={{ $json.timeInterval.end }}"
+            },
+            {
+              "name": "timeInterval.duration",
+              "value": "={{ $json.timeInterval.duration }} "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5874c3d4-27a7-4082-b7c6-032e4e54c9d8",
+      "name": "Set3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "= {{ $json.timeInterval.end }}",
+              "operation": "notEqual",
+              "value2": "={{null  }} "
+            }
+          ]
+        }
+      },
+      "id": "08b3a336-c955-4643-b826-315639fc053a",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        540
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "value": "={{ $json.timeInterval.end}}",
+        "options": {
+          "fromFormat": "YYYY-MM-DDTHH:MM:SSZ"
+        }
+      },
+      "id": "672f9af0-f547-4ef8-81c1-51bd43870070",
+      "name": "Date & Time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        540
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "removeDuplicates"
+      },
+      "id": "24bc25c5-dd0f-4707-94d2-319ca97a0a2d",
+      "name": "Item Lists",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 2,
+      "position": [
+        2360,
+        540
+      ],
+      "alwaysOutputData": true,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "dateTime": [
+            {
+              "value1": "={{ $json.timeInterval.end }}",
+              "value2": "={{ $now.minus(2, 'week') }}"
+            }
+          ]
+        }
+      },
+      "id": "a7f5a3c2-ee70-42ce-a002-74ff3aa509f1",
+      "name": "Filter1",
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 1,
+      "position": [
+        2780,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "duration_abs",
+              "value": "=  {{ ($json.timeInterval.end.toDate() -   $json.timeInterval.start.toDate())/(100*60*60*10)}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a9bc8744-6c2b-46be-af68-20c111df0490",
+      "name": "Set4",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        3000,
+        540
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-05-18T20:29:51.943Z",
+  "versionId": "6c6f842f-91db-41fa-91c4-e57ef35c29a2"
+}
