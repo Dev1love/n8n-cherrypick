@@ -17,7 +17,7 @@
       "type": "n8n-nodes-base.telegramTrigger",
       "typeVersion": 1,
       "position": [
-        600,
+        240,
         380
       ],
       "webhookId": "4b647d1d-0351-4bfc-bd41-0b40534bd403",
@@ -34,6 +34,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2023-05-19T11:26:40.000Z",
-  "versionId": "4e24a6a8-17f1-4665-84d4-f9f228bbf2b5"
+  "updatedAt": "2023-05-19T14:46:04.000Z",
+  "versionId": "e5aca24a-7b98-4bf6-a5fd-a3998c1f079e"
 }
